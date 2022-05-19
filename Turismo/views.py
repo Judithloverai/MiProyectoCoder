@@ -2,12 +2,21 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from Turismo.models import Destino
 
-def destino(self):
+def destino(request):
 
-    destino1=Destino(nomnre="Tokio", unbicacion="Japón")
+    return render(request,"Turismo/destino.html")
 
-    destino.sabve()
 
-    documento = f"El destino de viaje es {destino.nombre} y su ubicación es {destino.ubicacion}"
+def profesionales(request):
 
-    return HttpResponse(documento)
+    return render(request, "Turismo/profesionales.html")
+
+    
+def usuario(request):
+
+    return render(request,"Turismo/usuario.html")
+
+
+def inicio (request):
+
+    return render(request,"Turismo/inicio.html")
