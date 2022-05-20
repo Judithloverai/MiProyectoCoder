@@ -25,10 +25,6 @@ def inicio (request):
 
 def consultas (request):
 
-    return render(request,"Turismo/consultas.html")
-
-def consultaFormulario(request):
-
     if request.method == 'POST':
         miFormulario = ConsultaFormulario(request.POST)
         print(miFormulario)
@@ -47,4 +43,8 @@ def consultaFormulario(request):
         miFormulario = ConsultaFormulario()
     
     
-    return render(request, "Turismo/consultaFormulario.html", {"miFormulario":miFormulario})
+    return render(request, "Turismo/consultas.html", {"miFormulario":miFormulario})
+
+
+
+

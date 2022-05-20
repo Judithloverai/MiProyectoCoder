@@ -8,3 +8,4 @@ class ConsultaFormulario(forms.Form):
     apellido = forms.CharField()
     email = forms.EmailField()
     consulta = forms.CharField()
+

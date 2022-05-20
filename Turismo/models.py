@@ -3,7 +3,7 @@ from django.db import models
 
 class Destino(models.Model):
     nombre = models.CharField(max_length=40)
-    ubicacion = models.CharField(max_length=40)
+    pais = models.CharField(max_length=40, default="")
 
     def __str__(self):
         txt = "{0} - {1}"
