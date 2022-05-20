@@ -35,6 +35,7 @@ class Consultas(models.Model):
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
     email = models.EmailField()
+    consulta = models.TextField(default="")
 
     def __str__(self):
         txt = "{0} , {1}"
