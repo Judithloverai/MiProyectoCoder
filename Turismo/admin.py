@@ -3,3 +3,4 @@ from .models import *
 admin.site.register(Usuario)
 admin.site.register(Destino)
 admin.site.register(Profesionales)
+admin.site.register(Consultas)

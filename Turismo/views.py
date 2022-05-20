@@ -20,3 +20,11 @@ def usuario(request):
 def inicio (request):
 
     return render(request,"Turismo/inicio.html")
+
+def consultas (request):
+
+    return render(request,"Turismo/consultas.html")
+
+def usuarioFormulario(request):
+    
+    return render(render, "Turismo/usuarioFormulario.html")
