@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from Turismo.forms import ConsultaFormulario
-from Turismo.models import Consultas, Destino
+from Turismo.models import Consultas
 
 
 def destino(request):
@@ -36,10 +36,10 @@ def consultaFormulario(request):
             informacion = miFormulario.cleaned_data
 
         consultas = Consultas( 
-            consulta=informacion['consultas'], 
+            consulta=informacion['consulta'], 
             nombre=informacion['nombre'], 
             apellido=informacion['apellido'],
-            mail=informacion['mail'],)
+            email=informacion['email'],)
         consultas.save()
 
         return render(request, "Turismo/inicio.html")
