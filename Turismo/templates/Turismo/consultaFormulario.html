@@ -7,13 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-
+    <form action="/Turismo/" method="POST"> {% csrf_token %}
     {% if miFormulario.errors %}
 
     <p style="color:red"> Datos Incorrectos</p>
 
     {% endif %}
-    <form action=method="POST"> {% csrf_token %}
+    
 
     <table>
 
