@@ -11,13 +11,11 @@ urlpatterns = [
     path('listaProfes/', views.listaProfesionales, name="ListaProfesionales"),
     path('borrarProfes/<profesional_nombre>', views.borrarProfresionales, name="BorrarProfes"),
     path('editarProfes/<profesional_nombre>', views.editarProfesionales, name="EditarProfes"),
+    path('editarUsuario', views.editarUsuario, name="EditarUsuario"),
+
 
     path('consultas/lista', views.ConsultasList.as_view(), name ="ListConsultas"),
-    re_path(r'^(?P<pk>\d+)$', views.ConsultasDetalle.as_view(), name='Detail'),
-    re_path(r'^nuevo$', views.ConsultasCreacion.as_view(), name="New"),
-    re_path(r'^editar/(?P<pk>\d+)$', views.ConsultasEditar.as_view(), name='Edit'),
-    re_path(r'^borrar/(?P<pk>\d+)$', views.ConsultasEliminar.as_view(), name='Delete'),
-
+   
     path('login', views.login_request, name='Login'),
     path('logout', LogoutView.as_view(template_name='Turismo/logout.html'), name='Logout'),
     path('Registrar', views.register, name='Registrar'),

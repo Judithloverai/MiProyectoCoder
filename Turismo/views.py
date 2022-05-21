@@ -130,6 +130,7 @@ def consultas (request):
     return render(request, "Turismo/consultas.html", dict1)
 
 
+
 def listaProfesionales(request):
 
         profesionales = Profesionales.objects.all()
@@ -186,23 +187,32 @@ class ConsultasList(LoginRequiredMixin, ListView):
     model = Consultas
     template_name = "Turismo/listaConsultas.html"
 
-class ConsultasDetalle(DetailView):
-    model = Consultas
-    template_name = "Turismo/consultasDetalle.html"
 
-class ConsultasCreacion(CreateView):
-    model = Consultas
-    success_url = "Turismo/consultas/lista"
-    fields = ['nombre', 'apellido','email','consulta']
+def editarUsuario(request):
 
-class ConsultasEditar(UpdateView):
-    model = Consultas
-    success_url = "Turismo/consultas/listas"
-    fields = ['nombre', 'apellido','email','consulta']
+    usuario = request.user 
 
-class ConsultasEliminar(DeleteView):
-    model = Consultas
-    success_url = "Turismo/consultas/lista"
-    fields = ['nombre', 'apellido','email','consulta']
+    if request.method == "POST":    
+
+        miFormulario = RegistroFormulario(request.POST) 
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data     
+
+            
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password1']
+            usuario.save()
+
+            return render(request, "Turismo/inicio.html")
+
+    else:
+
+        miFormulario= RegistroFormulario(initial={'username':usuario.username})
+
+    return render(request, "Turismo/editarUsuario.html",{'miFormulario':miFormulario, 'usuario':usuario.username})
+
 
 
