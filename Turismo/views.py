@@ -1,7 +1,51 @@
+from msilib.schema import ListView
+from pyexpat import model
 from django.http import HttpResponse
 from django.shortcuts import render
 from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario
 from Turismo.models import Consultas, Profesionales
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login,authenticate
+from django.contrib.auth.forms import AuthenticationForm
+
+
+
+def login_request(request):
+
+    if request.method == 'POST':
+
+        form = AuthenticationForm(request, data = request.POST) 
+
+        if form.is_valid():
+            
+            usuario=form.cleaned_data.get('username')  
+            contra=form.cleaned_data.get('password')    
+
+            user=authenticate(username=usuario, password=contra)    
+
+            if user:    
+
+                login(request, user)   
+
+             
+                return render(request, "Turismo/inicio.html", {'mensaje':f"Bienvenido {user}"}) 
+
+        else:  
+
+    
+            return render(request, "Turismo/inicio.html", {'mensaje':"Error. Datos incorrectos"})
+
+    else:
+            
+        form = AuthenticationForm() 
+
+    return render(request, "Turismo/login.html", {'form':form})
+
+    
 
 
 def destino(request):
@@ -35,8 +79,8 @@ def profesionales(request):
 
 
     
-def usuario(request):
-     return render(request,"Turismo/usuario.html")
+def cliente(request):
+     return render(request,"Turismo/cliente.html")
 
 
 def inicio (request):
@@ -65,6 +109,8 @@ def consultas (request):
     dict1={"miFormulario": miFormulario}
     return render(request, "Turismo/consultas.html", dict1)
 
+@login_required
+
 def listaProfesionales(request):
 
         profesionales = Profesionales.objects.all()
@@ -72,6 +118,8 @@ def listaProfesionales(request):
         contexto = {"profesionales":profesionales}
 
         return render(request, "Turismo/leerProfesionales.html",contexto)
+
+@login_required
 
 def borrarProfresionales(request, profesional_nombre):
 
@@ -85,8 +133,10 @@ def borrarProfresionales(request, profesional_nombre):
 
     return render(request, "Turismo/leerProfesionales.html", contexto)
 
+@login_required
+
 def editarProfesionales(request, profesional_nombre):
-    
+
     profesionales = Profesionales.objects.get(nombre = profesional_nombre)
 
     if request.method == "POST":
@@ -112,8 +162,28 @@ def editarProfesionales(request, profesional_nombre):
     
     return render(request,"Turismo/editarProfesionales.html", {'miFormulario':miFormulario, 'profesional_nombre':profesional_nombre})
 
+class ConsultasList(LoginRequiredMixin, ListView):
 
+    model = Consultas
+    template_name = "Turismo/listaConsultas.html"
 
+class ConsultasDetalle(DetailView):
+    model = Consultas
+    template_name = "Turismo/consultasDetalle.html"
 
+class ConsultasCreacion(CreateView):
+    model = Consultas
+    success_url = "Turismo/consultas/lista"
+    fields = ['nombre', 'apellido','email','consulta']
+
+class ConsultasEditar(UpdateView):
+    model = Consultas
+    success_url = "Turismo/consultas/listas"
+    fields = ['nombre', 'apellido','email','consulta']
+
+class ConsultasEliminar(DeleteView):
+    model = Consultas
+    success_url = "Turismo/consultas/lista"
+    fields = ['nombre', 'apellido','email','consulta']
 
 

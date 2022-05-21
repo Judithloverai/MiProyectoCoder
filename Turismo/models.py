@@ -9,7 +9,7 @@ class Destino(models.Model):
         txt = "{0} - {1}"
         return txt.format(self.nombre, self.ubicacion)
 
-class Usuario(models.Model):
+class Cliente(models.Model):
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
     email = models.EmailField()
