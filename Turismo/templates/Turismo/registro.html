@@ -1,0 +1,15 @@
+{% extends "Turismo/padre.html" %}
+
+{% load static %}
+
+{% block informacionQueCambia %}
+
+<form action="" method="POST"> {% csrf_token %}
+    {{form.as_p}}
+
+    <button type="submit">Registrarte</button>
+    
+</form>
+
+{% endblock %}
+

@@ -1,4 +1,9 @@
-<p> Por favor, no repetir nombre</p>
+{% extends "Turismo/padre.html" %}
+
+{% load static %}
+
+{% block informacionQueCambia %}
+
 {% for p in profesionales %}
 
 <li>{{p}}</li> 
@@ -16,3 +21,6 @@
 <br>
 </br>
 {% endfor %}
+
+{% endblock %}
+

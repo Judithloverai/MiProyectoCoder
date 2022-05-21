@@ -2,7 +2,7 @@ from msilib.schema import ListView
 from pyexpat import model
 from django.http import HttpResponse
 from django.shortcuts import render
-from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario
+from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario, RegistroFormulario
 from Turismo.models import Consultas, Profesionales
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -11,6 +11,26 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.forms import AuthenticationForm
+
+def register(request):
+
+    if request.method == 'POST':    
+
+        form = RegistroFormulario(request.POST)   
+
+        if form.is_valid():
+
+            user=form.cleaned_data['username']
+            form.save()
+            
+            return render(request, "Turismo/inicio.html", {'mensaje':"Usuario Creado"})
+    
+    else:
+
+        form = RegistroFormulario()   
+    
+    
+    return render(request, "Turismo/registro.html", {'form':form})
 
 
 
@@ -109,7 +129,6 @@ def consultas (request):
     dict1={"miFormulario": miFormulario}
     return render(request, "Turismo/consultas.html", dict1)
 
-@login_required
 
 def listaProfesionales(request):
 
