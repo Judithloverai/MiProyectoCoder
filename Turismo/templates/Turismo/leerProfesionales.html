@@ -1,0 +1,18 @@
+<p> Por favor, no repetir nombre</p>
+{% for p in profesionales %}
+
+<li>{{p}}</li> 
+
+<button>
+
+    <a href="{% url 'BorrarProfes' p.nombre %}">Borrar</a>
+
+</button><button>
+
+    <a href="{% url 'EditarProfes' p.nombre %}">Editar</a>
+
+</button>
+
+<br>
+</br>
+{% endfor %}

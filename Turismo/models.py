@@ -26,8 +26,7 @@ class Profesionales(models.Model):
     cargo = models.CharField(max_length=40, default="")
 
     def __str__(self):
-        txt = "{0} , {1}"
-        return txt.format(self.nombre, self.apellido)
+        return f" id: {self.id} - Nombre: {self.nombre} - Apellido: {self.apellido}, - Email: {self.email} - Cargo: {self.cargo}"
     class Meta: 
         verbose_name_plural = "Profesionales"
 

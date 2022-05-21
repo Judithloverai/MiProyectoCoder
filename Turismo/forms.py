@@ -9,3 +9,11 @@ class ConsultaFormulario(forms.Form):
     email = forms.EmailField()
     consulta = forms.CharField()
 
+class ProfesionalesFormulario(forms.Form):
+    nombre = forms.CharField()
+    apellido = forms.CharField()
+    email = forms.EmailField()
+    cargo = forms.CharField()
+
+
+  

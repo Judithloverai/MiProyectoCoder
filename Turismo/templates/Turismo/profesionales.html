@@ -6,6 +6,28 @@
 
 <h1 style="color:rgb(80, 22, 22)"> Conocé a nuestros profesionales </h1>
 
+{% endblock %}
 
+{% block contenidoBajo %}
+
+
+{% if miFormulario.errors %}
+
+<p style="color:red"> Datos Incorrectos</p>
+
+{% endif %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+<table>
+
+    {{miForm.as_table}}
+
+
+</table>
+
+    <input type="submit" value="Enviar">
+
+</form>
 
 {% endblock %}
