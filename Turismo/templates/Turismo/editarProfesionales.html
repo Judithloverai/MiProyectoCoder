@@ -1,4 +1,10 @@
-<h1>Formulario - Editar Profesional</h1>
+{% extends "Turismo/padre.html" %}
+
+{% load static %}
+
+{% block informacionQueCambia %}
+
+<h2> Editar Profesional</h2>
 
 
 {%if miFormulario.errors %}
@@ -19,3 +25,4 @@
     <input type="submit", value="Enviar", style="color:red">
 
 </form>
+{% endblock %}

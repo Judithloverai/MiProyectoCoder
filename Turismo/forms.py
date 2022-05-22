@@ -11,7 +11,7 @@ class ConsultaFormulario(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     email = forms.EmailField()
-    consulta = forms.CharField()
+    consulta = forms.CharField(widget=forms.Textarea(attrs={'name':'consulta'}))
 
 class ProfesionalesFormulario(forms.Form):
     nombre = forms.CharField()

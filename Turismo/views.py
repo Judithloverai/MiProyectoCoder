@@ -105,7 +105,6 @@ def cliente(request):
 def sobreLaCreadora(request):
     return render(request, "Turismo/abautme.html" )
 
-
 def inicio (request):
     
     avatares = Avatar.objects.filter(user=request.user.id)
