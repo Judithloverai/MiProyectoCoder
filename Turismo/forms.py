@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 
 from django import forms
 
+from Turismo.models import Avatar
+
 class ConsultaFormulario(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
@@ -26,3 +28,10 @@ class Meta:
 
         model = User
         fields = ['username', 'email', 'password1', 'password2'] 
+
+class AvatarFormulario(forms.ModelForm):
+
+    class Meta:
+
+        model = Avatar
+        fields = ['user', 'imagen']

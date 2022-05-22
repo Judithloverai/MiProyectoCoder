@@ -2,8 +2,8 @@ from msilib.schema import ListView
 from pyexpat import model
 from django.http import HttpResponse
 from django.shortcuts import render
-from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario, RegistroFormulario
-from Turismo.models import Consultas, Profesionales
+from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario, RegistroFormulario, AvatarFormulario
+from Turismo.models import Avatar, Consultas, Destino, Profesionales
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -104,8 +104,9 @@ def cliente(request):
 
 
 def inicio (request):
-
-    return render(request,"Turismo/inicio.html")
+    avatares = Avatar.objects.filter(user=request.user.id)
+    imagen = avatares[0].imagen.url
+    return render(request,"Turismo/inicio.html", {'url': imagen})
 
 def consultas (request):
 
@@ -214,5 +215,43 @@ def editarUsuario(request):
 
     return render(request, "Turismo/editarUsuario.html",{'miFormulario':miFormulario, 'usuario':usuario.username})
 
+def busquedaPais(request):
+
+    return render(request, "Turismo/busquedaPais.html")
+
+def buscar(request):
 
 
+    if request.GET['pais']:
+
+        pais = request.GET['pais']      
+        destino = Destino.objects.filter(pais__iexact=pais)
+
+        return render(request, "Turismo/resultadosBusqueda.html", {"destino":destino, "pais":pais})
+
+    else:
+
+        respuesta="No enviaste datos."
+    
+    return HttpResponse(respuesta)
+def agregarImagen(request):
+
+    if request.method == 'POST': 
+
+        miFormulario = AvatarFormulario(request.POST, request.FILES) #
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data
+
+            avatar = Avatar(user=request.user, imagen=informacion['imagen'])
+
+            avatar.save()
+
+            return render(request, "Turismo/inicio.html")
+
+    else:
+
+        miFormulario = AvatarFormulario()
+    
+    return render(request, "Turismo/agregarImg.html", {'form':miFormulario})
