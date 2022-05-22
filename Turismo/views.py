@@ -2,7 +2,7 @@ from msilib.schema import ListView
 from pyexpat import model
 from django.http import HttpResponse
 from django.shortcuts import render
-from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario, RegistroFormulario, AvatarFormulario
+from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario, RegistroFormulario
 from Turismo.models import Avatar, Consultas, Destino, Profesionales
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -102,12 +102,16 @@ def profesionales(request):
 def cliente(request):
      return render(request,"Turismo/cliente.html")
 
+def sobreLaCreadora(request):
+    return render(request, "Turismo/abautme.html" )
+
 
 def inicio (request):
+    
     avatares = Avatar.objects.filter(user=request.user.id)
     imagen = avatares[0].imagen.url
     return render(request,"Turismo/inicio.html", {'url': imagen})
-
+    
 def consultas (request):
 
     if request.method == 'POST':
@@ -234,24 +238,3 @@ def buscar(request):
         respuesta="No enviaste datos."
     
     return HttpResponse(respuesta)
-def agregarImagen(request):
-
-    if request.method == 'POST': 
-
-        miFormulario = AvatarFormulario(request.POST, request.FILES) #
-
-        if miFormulario.is_valid():
-
-            informacion = miFormulario.cleaned_data
-
-            avatar = Avatar(user=request.user, imagen=informacion['imagen'])
-
-            avatar.save()
-
-            return render(request, "Turismo/inicio.html")
-
-    else:
-
-        miFormulario = AvatarFormulario()
-    
-    return render(request, "Turismo/agregarImg.html", {'form':miFormulario})
