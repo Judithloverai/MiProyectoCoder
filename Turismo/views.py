@@ -245,3 +245,15 @@ def resultadosBusqueda(request):
 
 def buscar (request):
     return render(request, "Turismo/busquedaPais.html")
+
+
+class ConsultaDetalle(DetailView):
+
+    model = Consultas
+    template_name = "Turismo/consultaDetalle.html"
+
+
+class ConsultaDelete(DeleteView):
+
+    model = Consultas
+    success_url = "/Turismo/consultas/lista"

@@ -1,0 +1,16 @@
+{% extends "Turismo/padre.html" %}
+
+{% load static %}
+
+{% block informacionQueCambia %}
+<body>
+    <p>Nombre: <i>{{ consultas.nombre }} </i></p>
+    <p>Apellido: <i>{{ consultas.apellido }}</i></p>
+    <p>Email: <i>{{ consultas.email }} </i></p>
+    <p>Consultas: <i>{{ consultas.consulta}} </i></p>
+
+    <p>
+        <a style="color:rgb(46, 9, 35)" href="{% url 'ListConsultas' %}">Regresar</a>
+    </p>
+</body>
+{% endblock %}

@@ -14,6 +14,15 @@
 
         <li>
             <p>Nombre:{{consultas.nombre}} </p>
+            <p>
+
+                <a style="color:rgb(46, 9, 35)" href="{% url 'Detail' consultas.id %}">Ver</a>
+                <a style="color:rgb(46, 9, 35)" href="{% url 'Delete' consultas.id %}">Borrar</a>
+
+
+
+            </p>
+
            
         </li>
 
