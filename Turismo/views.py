@@ -2,6 +2,7 @@ from msilib.schema import ListView
 from pyexpat import model
 from django.http import HttpResponse
 from django.shortcuts import render
+import Turismo
 from Turismo.forms import ConsultaFormulario, ProfesionalesFormulario, RegistroFormulario
 from Turismo.models import Avatar, Consultas, Destino, Profesionales
 from django.views.generic import ListView
@@ -106,10 +107,14 @@ def sobreLaCreadora(request):
     return render(request, "Turismo/abautme.html" )
 
 def inicio (request):
-    
     avatares = Avatar.objects.filter(user=request.user.id)
-    imagen = avatares[0].imagen.url
-    return render(request,"Turismo/inicio.html", {'url': imagen})
+
+    if len(avatares) > 0:
+        imagen = avatares[0].imagen.url
+        return render(request,"Turismo/inicio.html", {'url': imagen})
+    else: 
+        return render(request,"Turismo/inicio.html")
+
     
 def consultas (request):
 
@@ -222,18 +227,21 @@ def busquedaPais(request):
 
     return render(request, "Turismo/busquedaPais.html")
 
-def buscar(request):
+def resultadosBusqueda(request):
 
 
     if request.GET['pais']:
 
         pais = request.GET['pais']      
-        destino = Destino.objects.filter(pais__iexact=pais)
+        resultado = Destino.objects.filter(pais__icontains=pais)
 
-        return render(request, "Turismo/resultadosBusqueda.html", {"destino":destino, "pais":pais})
+        return render(request, "Turismo/resultadosBusqueda.html", {"resultado":resultado, "pais":pais})
 
     else:
 
         respuesta="No enviaste datos."
     
     return HttpResponse(respuesta)
+
+def buscar (request):
+    return render(request, "Turismo/busquedaPais.html")

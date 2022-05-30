@@ -8,16 +8,17 @@
 </head>
 <body>
     <p>Los lugares para visitar dentro de este pais {{pais}} son:</p>
-    {% if destio %} 
+    {% if resultado %} 
 
     <ul>
-        {% for x in destino %}
+        {% for destino in resultado %}
     
-            <li>{{x.nombre}}</li>
+            <li>{{destino.nombre}}</li>
     
         {% endfor %}
     </ul>
-
+    {% else %}
+    <p> No hay destinos en el país {{pais}} </p>
     {% endif %} 
      
 </body>
