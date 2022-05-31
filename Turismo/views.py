@@ -139,7 +139,7 @@ def consultas (request):
     return render(request, "Turismo/consultas.html", dict1)
 
 
-
+@login_required
 def listaProfesionales(request):
 
         profesionales = Profesionales.objects.all()
